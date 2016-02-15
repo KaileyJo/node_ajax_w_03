@@ -9,7 +9,10 @@ animals.get('/', function(req,res){
 
 animals.post('/', function(req,res){
     //console.log(req.body);
-    animalsArray.push(req.body['spirit-animal']);
+    //animalsArray.push(req.body['spirit-animal']);
+    if(req.body['spirit-animal'] !== ''){
+        animalsArray.push(req.body['spirit-animal']);
+    }
     //console.log(animalsArray);
     //res.send(req.body['spirit-animal']);
     res.send(animalsArray);

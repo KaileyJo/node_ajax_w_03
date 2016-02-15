@@ -3,24 +3,24 @@ var nameArray = [];
 
 $(document).ready(function(){
     //clickPostData();
-    pageReady('#name-form', 'name', nameArray);
-    pageReady('#animal-form', 'animals', animalsArray);
+    pageReady('name');
+    pageReady('animals');
     $('#post-data').on('click', clickPostData);
     //$('#get-data').on('click', getData);
     $('#assign').on('click', assignAnimals);
 });
 
-function pageReady(form, file, array) {
+function pageReady(fileName) {
     //On refresh page doesn't display lists, fix this without having empty array spots
     $.ajax({
         type: 'GET',
-        url: '/' + file, //1.go to node server (app.js)
+        url: '/' + fileName, //1.go to node server (app.js)
         success: function(data) {
             //array = [];
-            //$('#' + file + '-list').empty();
+            //$('#' + fileName + '-list').empty();
             console.log(data);
             for(var i = 0; i < data.length; i++) {
-                $('#' + file + '-list').append('<p>' + data[i] + '</p>');
+                $('#' + fileName + '-list').append('<p>' + data[i] + '</p>');
             }
         }
     });
@@ -28,8 +28,8 @@ function pageReady(form, file, array) {
 
 function clickPostData() {
     event.preventDefault();
-    postData('#name-form', 'name', nameArray);
-    postData('#animal-form', 'animals', animalsArray);
+    postData('#name-form', 'name', nameArray); //This doesn't watch for empty strings and records them in the array
+    postData('#animal-form', 'animals', animalsArray); //even if an input field is empty
 }
 
 function postData (form, file, array) {
@@ -45,7 +45,7 @@ function postData (form, file, array) {
         data: values,
         success: function(data) {
             console.log('From Server: ', data);
-            $('#' + file + '-list').empty();
+            $('#' + file + '-list').empty(); //consider declaring a variable for $('#' + file + '-list')
             //array.empty();
             //array.push(data);
             array = [];

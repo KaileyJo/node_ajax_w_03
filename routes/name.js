@@ -1,3 +1,6 @@
+//This is a module, but not a route, it would perhaps be better placed in a modules folder than the routes folder
+
+
 var nameArray = [];
 var express = require('express');
 var name = express.Router();
@@ -8,8 +11,11 @@ name.get('/', function(req,res){
 });
 
 name.post('/', function(req,res){
-    //console.log(req.body);
-    nameArray.push(req.body.name);
+    //console.log(req.body); //could do if statement here to check if there is an empty '' so empty strings aren't
+    //nameArray.push(req.body.name); //pushed to the array
+    if(req.body.name !== ''){
+        nameArray.push(req.body.name);
+    }
     //console.log(nameArray);
     //res.send(req.body.name);
     res.send(nameArray);
